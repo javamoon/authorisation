@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>test</title>
+<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+
+function queryNum() {
+	alert($("#inputnum").val());
+	
+  $.ajax({
+	  url: "/json/query-num",
+	  data: {
+		  query-num: $("#inputnum").val(),
+		  query2: "data2"
+		  },
+	  success: function (data) {
+		   alert(data);
+		  }
+	  });
+}
+
+function qstrfn() {
+ alert("hello");
+}
+
+//$("#sbqstr").click(qstrfn);
+</script>
+<style type="text/css">
+</style>
+</head>
+<body>
+hello world!
+<p>If you click on me, I will disappear.</p>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<div id="query">
+    query: 
+    <input type="text" name="query" id="inputnum" onclick="qstrfn()"/>
+    <input type="submit" value="Submit" onclick="qstrfn()" id="sbqstr"/>
+</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>六安防伪查询</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+
+var elapse = 0;
+function queryNum() {
+  var inputnumv = $("#inputnum").val();
+//  var datav = {"query-num": inputnumv};
+  var qtime = (new Date()).getTime();
+  $.ajax({
+	  url: "/json/query-num",
+	  data: {"query-num": inputnumv, "elapse": elapse},
+	  success: function (data) {
+		   $("#show").text("");
+		   if (data.status)
+		     $("#show").append("<br>恭喜您，您所查询的产品已在防伪系统注册，您购买的是正品，感谢您支持六安发展！"); 
+		   else
+		     $("#show").append("<br>您所查询的产品不存在，建议您抵制诱惑，认真辨别，谨防上当受骗！"); 
+
+			 elapse = ((new Date()).getTime() - qtime);
+		     $("#elapse").text("");
+		     $("#elapse").append("[" + elapse + "ms]"); 
+		     //$("#show").append("<strong>" + data.response + "</strong>"); 
+		  }
+	  });
+}
+
+</script>
+<style type="text/css">
+.center
+{
+		margin:auto;
+		width:875px;
+}
+body
+{
+  background-color:#ededed;
+}
+.rs-content {
+vertical-align: middle;
+font-size: 16px;
+text-align: center;
+margin-top: 50px;
+font-weight: normal;
+color: #333;
+}
+.search-rs {
+height: 160px;
+border: solid 1px #aaa;
+border-radius: 2px;
+width:830px;
+margin-left:10px;
+}
+</style>
+</head>
+<body>
+<div id="div2" class="center"><br><img alt="" src="home_01.png" height="84" width="875"></img></div>
+<div style="position:relative" class="center">
+<div id="div3" stype="position:absolute;left:0;top:0;z-index:-1;"><br><img alt="" src="query.png" height="130" width="875"></img></div>
+<div id="query" style="position:absolute;top:50px;left:250px;top:80px;z-index:1;">
+   <span style="color:white;font-weight:bold;">防伪码查询:</span> 
+    <input type="text" name="query" id="inputnum" />
+    <input type="submit" value="查询" onclick="queryNum()" id="sbqstr"/>
+</div>
+<div style="margin-left:5px;"><br>&nbsp;<span style="color:gray">查询结果：</span><span id="elapse" style="font-weight:lighter;font-size:small;color:gray"></span><br><br></div>
+</div>
+<div class="center">
+<div class="search-rs">
+<div id="show" class="rs-content"></div>
+</div>
+</div>
+<div class="center" style="text-align:center;margin-top:20px;">Copyright 2014 六安防伪查询中心 All Rights Reserved.</div>
+</body>
+</html>

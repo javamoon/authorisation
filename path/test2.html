@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>test</title>
+<script type="text/javascript" src="jquery-2.1.1.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $("p").click(function(){
+  $(this).hide();
+  
+  $.ajax({
+	  url: "/json",
+	  data: {
+		  query1: "data1",
+		  query2: "data2"
+		  },
+	  success: function (data) {
+		  alert(data.key1);
+		  $("#div1").html("json={" + data + "}");
+		  //{"key3":{"c":3,"b":2,"a":1},"key2":["a","b","c"],"key4":["a","c","b"],"key1":123}
+		  var str = "k1->" + data.key1 + ", k2->" + data.key2 + ", k3->" + data.key3 + ", k4->" + data.key4 + 
+			    ", k3.c->" + data.key3.c + ", k2[1]->" + data.key2[1];
+		  $("#div3").html("json-value={" + str + "}");
+		  }
+	  });
+
+  $("#div2").load("/json");
+
+  $("#div1").css("color", "gray");  
+  $("#div1").css("border-width", "1px");  
+  $("#div1").css("border-color", "green");  
+  $("#div1").css("border-style", "solid");  
+  });
+});
+</script>
+<style type="text/css">
+</style>
+</head>
+<body>
+hello world!
+<p>If you click on me, I will disappear.</p>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+</body>
+</html>
